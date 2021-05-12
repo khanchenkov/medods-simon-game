@@ -54,6 +54,7 @@ export default {
             clearInterval(this.currentInterval)
             this.isGameStarted = true
             this.isFieldClickable = false
+            this.isGameLost = false
             this.currentUserSequence = []
             this.currentGameSequence = []
             this.level++
@@ -61,7 +62,8 @@ export default {
         },
         stopGame() {
             clearInterval(this.currentInterval)
-            this.isGameStarted = this.isFieldClickable = false
+            this.isGameStarted = false
+            this.isFieldClickable = false
             this.level = 0
         },
         generate(num) {
@@ -83,15 +85,15 @@ export default {
 
                 if (this.currentUserSequence[i] !== this.currentGameSequence[i]) {
                     this.isGameLost = true
+
                     setTimeout(()=> {
                         alert('Неправильно')
                     }, 350)
                     
-                    setTimeout(()=> {
-                        this.stopGame()
-                    }, this.currDifficulty)
-                    
-                    
+                    this.stopGame()
+                    // setTimeout(()=> {
+                        
+                    // }, this.currDifficulty)
                     
                 }
             } 
@@ -163,21 +165,21 @@ export default {
         &-red
             background: $red-part
             border-radius: 100% 0 0 0
-            &.active
+            &.active, &.clickable:hover
                 background: darken($red-part, 20%)
         &-lime
             background: $blue-part
             border-radius: 0 100% 0 0
-            &.active
+            &.active, &.clickable:hover
                 background: darken($blue-part, 20%)
         &-blue
             background: $yellow-part
             border-radius: 0 0 0 100%
-            &.active
+            &.active, &.clickable:hover
                 background: darken($yellow-part, 20%)
         &-violet
             background: $green-part
             border-radius: 0 0 100% 0
-            &.active
+            &.active, &.clickable:hover
                 background: darken($green-part, 20%)
 </style>
