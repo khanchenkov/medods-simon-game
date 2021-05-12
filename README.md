@@ -2,7 +2,7 @@
 
 https://khanchenkov.github.io/medods-simon-game/
 
-(/src/assets/meme.jpg)
+https://cs14.pikabu.ru/post_img/2021/05/10/6/1620635073183599381.png
 
 ## Project setup
 ```
