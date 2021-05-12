@@ -116,7 +116,7 @@ export default {
             }, 200)
         },
         playSound(num) {
-            let audio = new Audio(`../sounds/${num}.mp3`);
+            let audio = new Audio(`./sounds/${num}.mp3`);
             audio.loop = false
             return audio.play()
         },
@@ -146,14 +146,18 @@ export default {
         
 .board
     display: grid
+    background: #1d1d1d
+    padding: 10px 20px 20px 10px
+    border-radius: 50px
     grid-template: 1fr 1fr / 1fr 1fr
+    grid-gap: 11px 9.5px
     width: 400px
     height: 400px
     margin-right: 60px
     &__part
         box-sizing: border-box
-        width: 190px    
-        height: 190px
+        width: 200px    
+        height: 200px
         &.clickable
             cursor: pointer
         &-red
