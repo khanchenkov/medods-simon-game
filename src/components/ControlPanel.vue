@@ -69,6 +69,7 @@ export default {
       border: none
       width: 100px
       padding: 5px 0
+      transition: 0.2s
       &:hover
         background: darken($main-color, 5%)
       &:nth-child(2)

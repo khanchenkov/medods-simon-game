@@ -13,7 +13,7 @@
                 @stopGame="stopGame()"
                 :level="level"
                 :isGameStarted="isGameStarted"
-                @setDifficulty="updateParent"
+                @setDifficulty="changeDifficulty"
             />
           </div>
       </div>
@@ -47,31 +47,23 @@ export default {
         }
     },
     methods: {
-        updateParent(diff) {
+        changeDifficulty(diff) {
             this.currDifficulty = diff
         },
         startGame() {
-            clearInterval(this.currentInterval)
             this.isGameStarted = true
             this.isFieldClickable = false
             this.isGameLost = false
             this.currentUserSequence = []
-            this.currentGameSequence = []
             this.level++
             this.showLevel(this.level)
         },
         stopGame() {
             clearInterval(this.currentInterval)
+            this.currentGameSequence = []
             this.isGameStarted = false
             this.isFieldClickable = false
             this.level = 0
-        },
-        generate(num) {
-            let currentLevel = []
-            for (let i = 0; i < num; i++) {
-                currentLevel.push(Math.floor(Math.random() * (5 - 1) + 1))
-            }
-            return currentLevel
         },
         clicked(num) {
             if (this.isFieldClickable && this.isGameStarted) {
@@ -82,19 +74,14 @@ export default {
         },
         checkSequences() {
             for (let i = 0; i < this.currentUserSequence.length; i++) {
-
                 if (this.currentUserSequence[i] !== this.currentGameSequence[i]) {
                     this.isGameLost = true
-
                     setTimeout(()=> {
                         alert('Неправильно')
                     }, 350)
-                    
-                    this.stopGame()
-                    // setTimeout(()=> {
-                        
-                    // }, this.currDifficulty)
-                    
+                    setTimeout(()=> {
+                        this.stopGame()     
+                    }, this.currDifficulty)
                 }
             } 
 
@@ -103,11 +90,9 @@ export default {
                 setTimeout(() => {
                     alert(`Уровень ${curLvl} пройден`)
                 }, 350)
-
                 setTimeout(()=> {
                         this.startGame()
-                }, this.currDifficulty)
-                
+                }, this.currDifficulty)         
             }
         },
         lightUp(num) {
@@ -122,8 +107,8 @@ export default {
             audio.loop = false
             return audio.play()
         },
-        showLevel(lvl) {  
-            this.currentGameSequence = this.generate(lvl) 
+        showLevel() {  
+            this.currentGameSequence.push(Math.floor(Math.random() * (5 - 1) + 1))
             let currentIndex = 0
             this.isFieldClickable = false
 
@@ -160,6 +145,7 @@ export default {
         box-sizing: border-box
         width: 200px    
         height: 200px
+        transition: 0.1s
         &.clickable
             cursor: pointer
         &-red
